@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esercizi di Italiano</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+        }
+        
+        .question {
+            background: #f8f9fa;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .question-text {
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: #333;
+            font-size: 1.1em;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: white;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .option:hover {
+            background: #f0f0f0;
+            border-color: #667eea;
+        }
+        
+        .option input[type="radio"] {
+            margin-right: 10px;
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+        }
+        
+        .option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+        
+        .option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+        
+        .text-input {
+            width: 100%;
+            padding: 12px;
+            font-size: 1em;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        
+        .text-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .text-input.correct-input {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+        
+        .text-input.incorrect-input {
+            border-color: #dc3545;
+            background: #f8d7da;
+        }
+        
+        .correct-answer {
+            margin-top: 8px;
+            padding: 10px;
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            border-radius: 5px;
+            font-size: 0.95em;
+            display: none;
+        }
+        
+        .correct-answer.show {
+            display: block;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        button {
+            padding: 15px 40px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        
+        .check-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .check-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .reset-btn:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+        
+        .result {
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+            font-size: 1.3em;
+            font-weight: bold;
+            display: none;
+        }
+        
+        .result.show {
+            display: block;
+        }
+        
+        .result.good {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #28a745;
+        }
+        
+        .result.medium {
+            background: #fff3cd;
+            color: #856404;
+            border: 2px solid #ffc107;
+        }
+        
+        .result.bad {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #dc3545;
+        }
+        
+        .instruction {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+            font-style: italic;
+            color: #555;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .buttons {
+                flex-direction: column;
+            }
+            
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🇮🇹 Esercizi di Italiano</h1>
+        <p class="subtitle">Упражнения по итальянскому языку</p>
+        
+        <!-- 1.4 -->
+        <div class="section">
+            <div class="section-title">1.4. Поставьте во множественное число (due)</div>
+            <div class="instruction">Esempio: Io ho una penna. → Io ho due penne.</div>
+            
+            <div class="question" data-type="text">
+                <div class="question-text">1. Tu hai un libro interessante.</div>
+                <input type="text" class="text-input" data-answers='["tu hai due libri interessanti", "voi avete due libri interessanti"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">2. Tu hai una penna verde.</div>
+                <input type="text" class="text-input" data-answers='["tu hai due penne verdi", "voi avete due penne verdi"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">3. Lei ha un bambino piccolo.</div>
+                <input type="text" class="text-input" data-answers='["lei ha due bambini piccoli", "loro hanno due bambini piccoli"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">4. Tu hai una macchina nuova.</div>
+                <input type="text" class="text-input" data-answers='["tu hai due macchine nuove", "voi avete due macchine nuove"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">5. Lui ha un amico italiano.</div>
+                <input type="text" class="text-input" data-answers='["lui ha due amici italiani", "loro hanno due amici italiani"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+        </div>
+
+        <!-- 1.9 -->
+        <div class="section">
+            <div class="section-title">1.9. Замените женский род на мужской</div>
+            
+            <div class="question" data-type="text">
+                <div class="question-text">1. La mia amica è alta e bionda.</div>
+                <input type="text" class="text-input" data-answers='["il mio amico è alto e biondo"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">2. Questa bambina è piccola, ma carina.</div>
+                <input type="text" class="text-input" data-answers='["questo bambino è piccolo, ma carino"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">3. Nostra figlia è brava.</div>
+                <input type="text" class="text-input" data-answers='["nostro figlio è bravo"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">4. Questa ragazza è straniera.</div>
+                <input type="text" class="text-input" data-answers='["questo ragazzo è straniero"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">5. La tua amica è simpatica.</div>
+                <input type="text" class="text-input" data-answers='["il tuo amico è simpatico"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">6. La sua amica è inglese.</div>
+                <input type="text" class="text-input" data-answers='["il suo amico è inglese"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+        </div>
+
+        <!-- 1.15 -->
+        <div class="section">
+            <div class="section-title">1.15. Поставьте подлежащее во множественное число</div>
+            
+            <div class="question" data-type="text">
+                <div class="question-text">1. Quella studentessa è italiana?</div>
+                <input type="text" class="text-input" data-answers='["quelle studentesse sono italiane?", "quelle studentesse sono italiane"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">2. Questo libro è interessante.</div>
+                <input type="text" class="text-input" data-answers='["questi libri sono interessanti"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">3. Quella ragazza è bella.</div>
+                <input type="text" class="text-input" data-answers='["quelle ragazze sono belle"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">4. Quella signora è molto gentile.</div>
+                <input type="text" class="text-input" data-answers='["quelle signore sono molto gentili"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">5. Questo signore è inglese.</div>
+                <input type="text" class="text-input" data-answers='["questi signori sono inglesi"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">6. Di chi è questo libro?</div>
+                <input type="text" class="text-input" data-answers='["di chi sono questi libri?", "di chi sono questi libri"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">7. Questa chiave è vostra?</div>
+                <input type="text" class="text-input" data-answers='["queste chiavi sono vostre?", "queste chiavi sono vostre"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">8. Di chi è questa macchina?</div>
+                <input type="text" class="text-input" data-answers='["di chi sono queste macchine?", "di chi sono queste macchine"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">9. Oggi il professore non c'è.</div>
+                <input type="text" class="text-input" data-answers='["oggi i professori non ci sono"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">10. Dov'è il bambino?</div>
+                <input type="text" class="text-input" data-answers='["dove sono i bambini?", "dove sono i bambini"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+        </div>
+
+        <!-- 1.16 -->
+        <div class="section">
+            <div class="section-title">1.16. Задайте вопрос на "Lei" (вежливая форма)</div>
+            <div class="instruction">Замените "tu" на "Lei" (вежливую форму)</div>
+            
+            <div class="question" data-type="text">
+                <div class="question-text">1. Quanti anni hai?</div>
+                <input type="text" class="text-input" data-answers='["quanti anni ha?", "quanti anni ha"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">2. Di dove sei?</div>
+                <input type="text" class="text-input" data-answers='["di dove è?", "di dove è", "di dov'\''è?", "di dov'\''è"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">3. Tu sei italiano?</div>
+                <input type="text" class="text-input" data-answers='["lei è italiano?", "lei è italiano", "è italiano?", "è italiano"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">4. Questo libro è tuo?</div>
+                <input type="text" class="text-input" data-answers='["questo libro è suo?", "questo libro è suo"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">5. Paolo, sei stanco?</div>
+                <input type="text" class="text-input" data-answers='["è stanco?", "è stanco", "paolo, è stanco?", "signor paolo, è stanco?"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">6. Tu sei di Mosca?</div>
+                <input type="text" class="text-input" data-answers='["lei è di mosca?", "lei è di mosca", "è di mosca?", "è di mosca"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">7. Marco, hai una penna?</div>
+                <input type="text" class="text-input" data-answers='["ha una penna?", "ha una penna", "marco, ha una penna?", "signor marco, ha una penna?"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">8. Questa penna è tua?</div>
+                <input type="text" class="text-input" data-answers='["questa penna è sua?", "questa penna è sua"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">9. Dov'è il tuo passaporto?</div>
+                <input type="text" class="text-input" data-answers='["dov'\''è il suo passaporto?", "dov'\''è il suo passaporto", "dove è il suo passaporto?", "dove è il suo passaporto"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">10. Hai fame?</div>
+                <input type="text" class="text-input" data-answers='["ha fame?", "ha fame"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+        </div>
+
+        <!-- TEXT 2 - Rispondere alle domande -->
+        <div class="section">
+            <div class="section-title">TEXT 2: Un bravo ragazzo - Rispondere alle domande</div>
+            
+            <div class="question" data-type="text">
+                <div class="question-text">1. Chi è in casa?</div>
+                <input type="text" class="text-input" data-answers='["la madre e il figlio", "madre e il figlio", "madre e figlio", "il figlio e la madre", "due persone"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">2. Dov'è il figlio?</div>
+                <input type="text" class="text-input" data-answers='["è in camera", "in camera", "è a letto", "a letto", "in camera, a letto"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">3. Dov'è la madre?</div>
+                <input type="text" class="text-input" data-answers='["è in cucina", "in cucina"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">4. Quanti anni ha il figlio?</div>
+                <input type="text" class="text-input" data-answers='["ha trentacinque anni", "trentacinque anni", "35 anni", "ha 35 anni"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">5. Cosa fa la madre quando il figlio ha sete?</div>
+                <input type="text" class="text-input" data-answers='["porta un bicchiere d'\''acqua", "porta un bicchiere di acqua", "porta l'\''acqua", "porta acqua"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">6. Cosa fa la madre quando il figlio ha fame?</div>
+                <input type="text" class="text-input" data-answers='["porta un piatto di pasta", "porta la pasta", "porta pasta"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">7. Cosa fa la madre quando il figlio ha freddo?</div>
+                <input type="text" class="text-input" data-answers='["porta una coperta", "porta la coperta"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">8. Cosa fa la madre quando il figlio ha sonno?</div>
+                <input type="text" class="text-input" data-answers='["chiude la finestra", "la madre chiude la finestra"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">9. Che cosa beve il figlio?</div>
+                <input type="text" class="text-input" data-answers='["beve l'\''acqua", "beve acqua", "acqua", "l'\''acqua", "un bicchiere d'\''acqua"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">10. Che cosa mangia il figlio?</div>
+                <input type="text" class="text-input" data-answers='["mangia la pasta", "mangia pasta", "pasta", "la pasta", "un piatto di pasta"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+        </div>
+
+        <!-- 3. Cambiare le frasi -->
+        <div class="section">
+            <div class="section-title">3. Cambiare le frasi</div>
+            <div class="instruction">Esempio: Io ho fame; anche Marco ha fame. → Io e Marco abbiamo fame.</div>
+            
+            <div class="question" data-type="text">
+                <div class="question-text">1. Io ho sete; anche tu hai sete.</div>
+                <input type="text" class="text-input" data-answers='["io e tu abbiamo sete", "noi abbiamo sete"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">2. Tu hai sonno; anche Dino ha sonno.</div>
+                <input type="text" class="text-input" data-answers='["tu e dino avete sonno", "voi avete sonno"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">3. Paolo ha freddo; anche Marco ha freddo.</div>
+                <input type="text" class="text-input" data-answers='["paolo e marco hanno freddo"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">4. Io ho molto lavoro; anche Paolo ha molto lavoro.</div>
+                <input type="text" class="text-input" data-answers='["io e paolo abbiamo molto lavoro"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">5. Il dottor Garbati ha paura del buio; anche il dottor Melani ha paura del buio.</div>
+                <input type="text" class="text-input" data-answers='["il dottor garbati e il dottor melani hanno paura del buio", "il dott. garbati e il dott. melani hanno paura del buio"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">6. Io ho caldo; anche Dino ha caldo.</div>
+                <input type="text" class="text-input" data-answers='["io e dino abbiamo caldo"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">7. Io non ho tempo; anche tu non hai tempo.</div>
+                <input type="text" class="text-input" data-answers='["io e tu non abbiamo tempo", "noi non abbiamo tempo"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">8. Tu hai una famiglia grande; anche Pietro ha una famiglia grande.</div>
+                <input type="text" class="text-input" data-answers='["tu e pietro avete una famiglia grande", "voi avete una famiglia grande"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">9. Carlo ha la macchina; anche Giorgio ha la macchina.</div>
+                <input type="text" class="text-input" data-answers='["carlo e giorgio hanno la macchina"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+
+            <div class="question" data-type="text">
+                <div class="question-text">10. Io ho un cactus verde; anche tu hai un cactus verde.</div>
+                <input type="text" class="text-input" data-answers='["io e tu abbiamo un cactus verde", "noi abbiamo un cactus verde"]' placeholder="Scrivi la risposta...">
+                <div class="correct-answer"></div>
+            </div>
+        </div>
+
+        <!-- Sezione 1: Essere e Avere -->
+        <div class="section">
+            <div class="section-title">Test: Essere e Avere (множественный выбор)</div>
+            
+            <div class="question" data-answer="c">
+                <div class="question-text">1. (Tu / avere) la macchina?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q1" value="a"> a) Ho</label>
+                    <label class="option"><input type="radio" name="q1" value="b"> b) Ha</label>
+                    <label class="option"><input type="radio" name="q1" value="c"> c) Hai</label>
+                    <label class="option"><input type="radio" name="q1" value="d"> d) Avete</label>
+                </div>
+            </div>
+
+            <div class="question" data-answer="d">
+                <div class="question-text">2. Gli studenti (avere) paura dell'esame.</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q2" value="a"> a) Avete</label>
+                    <label class="option"><input type="radio" name="q2" value="b"> b) Abbiamo</label>
+                    <label class="option"><input type="radio" name="q2" value="c"> c) È</label>
+                    <label class="option"><input type="radio" name="q2" value="d"> d) Hanno</label>
+                </div>
+            </div>
+
+            <div class="question" data-answer="c">
+                <div class="question-text">3. (Noi / essere) stanchi.</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q3" value="a"> a) Sono</label>
+                    <label class="option"><input type="radio" name="q3" value="b"> b) Siete</label>
+                    <label class="option"><input type="radio" name="q3" value="c"> c) Siamo</label>
+                    <label class="option"><input type="radio" name="q3" value="d"> d) Sei</label>
+                </div>
+            </div>
+
+            <div class="question" data-answer="b">
+                <div class="question-text">4. Anche tu (essere) di Milano?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q4" value="a"> a) È</label>
+                    <label class="option"><input type="radio" name="q4" value="b"> b) Sei</label>
+                    <label class="option"><input type="radio" name="q4" value="c"> c) Sono</label>
+                    <label class="option"><input type="radio" name="q4" value="d"> d) Avete</label>
+                </div>
+            </div>
+
+            <div class="question" data-answer="c">
+                <div class="question-text">5. Signora, Lei (essere) di Milano?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q5" value="a"> a) Sei</label>
+                    <label class="option"><input type="radio" name="q5" value="b"> b) Sono</label>
+                    <label class="option"><input type="radio" name="q5" value="c"> c) È</label>
+                    <label class="option"><input type="radio" name="q5" value="d"> d) Siete</label>
+                </div>
+            </div>
+
+            <div class="question" data-answer="d">
+                <div class="question-text">6. In questo ristorante i camerieri (essere) molto gentili.</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q6" value="a"> a) È</label>
+                    <label class="option"><input type="radio" name="q6" value="b"> b) Siamo</label>
+                    <label class="option"><input type="radio" name="q6" value="c"> c) Siete</label>
+                    <label class="option"><input type="radio" name="q6" value="d"> d) Sono</label>
+                </div>
+            </div>
+
+            <div class="question" data-answer="c">
+                <div class="question-text">7. Gianni e Marta (avere) una casa grande.</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q7" value="a"> a) Avete</label>
+                    <label class="option"><input type="radio" name="q7" value="b"> b) Ha</label>
+                    <label class="option"><input type="radio" name="q7" value="c"> c) Hanno</label>
+                    <label class="option"><input type="radio" name="q7" value="d"> d) Ho</label>
+                </div>
+            </div>
+
+            <div class="question" data-answer="c">
+                <div class="question-text">8. Il mio appartamento (essere) in centro.</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q8" value="a"> a) Sono</label>
+                    <label class="option"><input type="radio" name="q8" value="b"> b) Sei</label>
+                    <label class="option"><input type="radio" name="q8" value="c"> c) È</label>
+                    <label class="option"><input type="radio" name="q8" value="d"> d) Avete</label>
+                </div>
+            </div>
+
+            <div class="question" data-answer="b">
+                <div class="question-text">9. Io (avere) molto tempo libero.</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q9" value="a"> a) Ha</label>
+                    <label class="option"><input type="radio" name="q9" value="b"> b) Ho</label>
+                    <label class="option"><input type="radio" name="q9" value="c"> c) Hai</label>
+                    <label class="option"><input type="radio" name="q9" value="d"> d) Sono</label>
+                </div>
+            </div>
+
+            <div class="question" data-answer="c">
+                <div class="question-text">10. Voi (essere) italiani? – Sì, (essere) italiani.</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q10" value="a"> a) Sono / siete</label>
+                    <label class="option"><input type="radio" name="q10" value="b"> b) Siamo / siete</label>
+                    <label class="option"><input type="radio" name="q10" value="c"> c) Siete / siamo</label>
+                    <label class="option"><input type="radio" name="q10" value="d"> d) Avete / abbiamo</label>
+                </div>
+            </div>
+
+            <div class="question" data-answer="a">
+                <div class="question-text">11. Dino (avere) molti amici.</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q11" value="a"> a) Ha</label>
+                    <label class="option"><input type="radio" name="q11" value="b"> b) Ho</label>
+                    <label class="option"><input type="radio" name="q11" value="c"> c) Hanno</label>
+                    <label class="option"><input type="radio" name="q11" value="d"> d) È</label>
+                </div>
+            </div>
+
+            <div class="question" data-answer="c">
+                <div class="question-text">12. (Voi / avere) freddo? – No, non (avere) freddo.</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q12" value="a"> a) Siete / siamo</label>
+                    <label class="option"><input type="radio" name="q12" value="b"> b) Hai / ho</label>
+                    <label class="option"><input type="radio" name="q12" value="c"> c) Avete / abbiamo</label>
+                    <label class="option"><input type="radio" name="q12" value="d"> d) Hanno / avete</label>
+                </div>
+            </div>
+
+            <div class="question" data-answer="c">
+                <div class="question-text">13. Noi (essere) stranieri.</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q13" value="a"> a) Siete</label>
+                    <label class="option"><input type="radio" name="q13" value="b"> b) Sono</label>
+                    <label class="option"><input type="radio" name="q13" value="c"> c) Siamo</label>
+                    <label class="option"><input type="radio" name="q13" value="d"> d) È</label>
+                </div>
+            </div>
+
+            <div class="question" data-answer="c">
+                <div class="question-text">14. Paolo, questo libro (essere) tuo?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q14" value="a"> a) Sono</label>
+                    <label class="option"><input type="radio" name="q14" value="b"> b) Sei</label>
+                    <label class="option"><input type="radio" name="q14" value="c"> c) È</label>
+                    <label class="option"><input type="radio" name="q14" value="d"> d) Ha</label>
+                </div>
+            </div>
+
+            <div class="question" data-answer="b">
+                <div class="question-text">15. Maria (avere) un vestito molto elegante.</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q15" value="a"> a) Sono</label>
+                    <label class="option"><input type="radio" name="q15" value="b"> b) Ha</label>
+                    <label class="option"><input type="radio" name="q15" value="c"> c) Hai</label>
+                    <label class="option"><input type="radio" name="q15" value="d"> d) Ho</label>
+                </div>
+            </div>
+
+            <div class="question" data-answer="b">
+                <div class="question-text">16. Scusi, (essere) questo il treno per Milano?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q16" value="a"> a) Sono</label>
+                    <label class="option"><input type="radio" name="q16" value="b"> b) È</label>
+                    <label class="option"><input type="radio" name="q16" value="c"> c) Sei</label>
+                    <label class="option"><input type="radio" name="q16" value="d"> d) Hanno</label>
+                </div>
+            </div>
+
+            <div class="question" data-answer="b">
+                <div class="question-text">17. (Noi / avere) poco tempo, (essere) sempre occupati.</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q17" value="a"> a) Sono / ho</label>
+                    <label class="option"><input type="radio" name="q17" value="b"> b) Abbiamo / siamo</label>
+                    <label class="option"><input type="radio" name="q17" value="c"> c) Avete / siete</label>
+                    <label class="option"><input type="radio" name="q17" value="d"> d) Siamo / abbiamo</label>
+                </div>
+            </div>
+
+            <div class="question" data-answer="c">
+                <div class="question-text">18. Franco, tu (essere) il mio migliore amico.</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q18" value="a"> a) È</label>
+                    <label class="option"><input type="radio" name="q18" value="b"> b) Sono</label>
+                    <label class="option"><input type="radio" name="q18" value="c"> c) Sei</label>
+                    <label class="option"><input type="radio" name="q18" value="d"> d) Siamo</label>
+                </div>
+            </div>
+
+            <div class="question" data-answer="c">
+                <div class="question-text">19. Che giorno (essere) oggi?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q19" value="a"> a) Sei</label>
+                    <label class="option"><input type="radio" name="q19" value="b"> b) Sono</label>
+                    <label class="option"><input type="radio" name="q19" value="c"> c) È</label>
+                    <label class="option"><input type="radio" name="q19" value="d"> d) Hai</label>
+                </div>
+            </div>
+
+            <div class="question" data-answer="b">
+                <div class="question-text">20. Signor Rossi, (avere) una sigaretta?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q20" value="a"> a) Hai</label>
+                    <label class="option"><input type="radio" name="q20" value="b"> b) Ha</label>
+                    <label class="option"><input type="radio" name="q20" value="c"> c) Avete</label>
+                    <label class="option"><input type="radio" name="q20" value="d"> d) Ho</label>
+                </div>
+            </div>
+
+            <div class="question" data-answer="c">
+                <div class="question-text">21. Gianni (avere) sempre fame.</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q21" value="a"> a) Hanno</label>
+                    <label class="option"><input type="radio" name="q21" value="b"> b) Hai</label>
+                    <label class="option"><input type="radio" name="q21" value="c"> c) Ha</label>
+                    <label class="option"><input type="radio" name="q21" value="d"> d) È</label>
+                </div>
+            </div>
+
+            <div class="question" data-answer="b">
+                <div class="question-text">22. Maria, (essere) stanca?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q22" value="a"> a) È</label>
+                    <label class="option"><input type="radio" name="q22" value="b"> b) Sei</label>
+                    <label class="option"><input type="radio" name="q22" value="c"> c) Sono</label>
+                    <label class="option"><input type="radio" name="q22" value="d"> d) Siete</label>
+                </div>
+            </div>
+
+            <div class="question" data-answer="c">
+                <div class="question-text">23. Stasera non (io / avere) fame.</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q23" value="a"> a) Ha</label>
+                    <label class="option"><input type="radio" name="q23" value="b"> b) Hai</label>
+                    <label class="option"><input type="radio" name="q23" value="c"> c) Ho</label>
+                    <label class="option"><input type="radio" name="q23" value="d"> d) È</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button class="check-btn" onclick="checkAnswers()">Проверить все ответы</button>
+            <button class="reset-btn" onclick="resetQuiz()">Начать заново</button>
+        </div>
+
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        function normalizeText(text) {
+            return text.toLowerCase()
+                .trim()
+                .replace(/\s+/g, ' ')
+                .replace(/[\.!,;:\?]/g, '')
+                .replace(/'/g, "'");
+        }
+
+        function checkTextInput(input) {
+            const userAnswer = normalizeText(input.value);
+            const correctAnswers = JSON.parse(input.dataset.answers);
+            
+            const isCorrect = correctAnswers.some(answer => 
+                normalizeText(answer) === userAnswer
+            );
+            
+            input.classList.remove('correct-input', 'incorrect-input');
+            const correctAnswerDiv = input.parentElement.querySelector('.correct-answer');
+            
+            if (isCorrect) {
+                input.classList.add('correct-input');
+                correctAnswerDiv.classList.remove('show');
+                return true;
+            } else if (userAnswer) {
+                input.classList.add('incorrect-input');
+                correctAnswerDiv.innerHTML = '<strong>✓ Правильный ответ:</strong> ' + correctAnswers[0];
+                correctAnswerDiv.classList.add('show');
+                return false;
+            }
+            return null;
+        }
+
+        function checkAnswers() {
+            const multipleChoiceQuestions = document.querySelectorAll('.question[data-answer]');
+            const textQuestions = document.querySelectorAll('.question[data-type="text"]');
+            
+            let correct = 0;
+            let total = 0;
+            
+            // Check multiple choice questions
+            multipleChoiceQuestions.forEach(question => {
+                const correctAnswer = question.dataset.answer;
+                const options = question.querySelectorAll('.option');
+                const selectedOption = question.querySelector('input[type="radio"]:checked');
+                
+                options.forEach(option => {
+                    option.classList.remove('correct', 'incorrect');
+                    const input = option.querySelector('input[type="radio"]');
+                    
+                    if (input.value === correctAnswer) {
+                        option.classList.add('correct');
+                    }
+                    
+                    if (selectedOption && input === selectedOption && input.value !== correctAnswer) {
+                        option.classList.add('incorrect');
+                    }
+                });
+                
+                if (selectedOption && selectedOption.value === correctAnswer) {
+                    correct++;
+                }
+                total++;
+            });
+            
+            // Check text input questions
+            textQuestions.forEach(question => {
+                const input = question.querySelector('.text-input');
+                const result = checkTextInput(input);
+                
+                if (result === true) {
+                    correct++;
+                }
+                if (result !== null) {
+                    total++;
+                }
+            });
+            
+            if (total === 0) {
+                alert('Пожалуйста, ответьте хотя бы на один вопрос!');
+                return;
+            }
+            
+            const percentage = Math.round((correct / total) * 100);
+            const resultDiv = document.getElementById('result');
+            
+            let resultClass = 'bad';
+            let message = '';
+            
+            if (percentage >= 90) {
+                resultClass = 'good';
+                message = '🎉 Eccellente! ';
+            } else if (percentage >= 70) {
+                resultClass = 'medium';
+                message = '👍 Bene! ';
+            } else {
+                resultClass = 'bad';
+                message = '💪 Continua a studiare! ';
+            }
+            
+            resultDiv.className = `result show ${resultClass}`;
+            resultDiv.innerHTML = `${message}Risultato: ${correct} / ${total} (${percentage}%)`;
+            
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        
+        function resetQuiz() {
+            // Reset multiple choice
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => {
+                option.classList.remove('correct', 'incorrect');
+            });
+            
+            const radioButtons = document.querySelectorAll('input[type="radio"]');
+            radioButtons.forEach(radio => {
+                radio.checked = false;
+            });
+            
+            // Reset text inputs
+            const textInputs = document.querySelectorAll('.text-input');
+            textInputs.forEach(input => {
+                input.value = '';
+                input.classList.remove('correct-input', 'incorrect-input');
+            });
+            
+            // Hide correct answers
+            const correctAnswers = document.querySelectorAll('.correct-answer');
+            correctAnswers.forEach(answer => {
+                answer.classList.remove('show');
+            });
+            
+            const resultDiv = document.getElementById('result');
+            resultDiv.classList.remove('show');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
