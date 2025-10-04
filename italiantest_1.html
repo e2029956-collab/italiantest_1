@@ -43,6 +43,12 @@
         
         .section {
             margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .section:last-of-type {
+            border-bottom: none;
         }
         
         .section-title {
@@ -148,73 +154,72 @@
             display: block;
         }
         
-        .buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-top: 30px;
-        }
-        
-        button {
-            padding: 15px 40px;
-            font-size: 1.1em;
+        .check-section-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            font-size: 1em;
             border: none;
             border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s;
             font-weight: bold;
+            margin-top: 20px;
         }
         
-        .check-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-        
-        .check-btn:hover {
+        .check-section-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
         }
         
-        .reset-btn {
-            background: #6c757d;
-            color: white;
-        }
-        
-        .reset-btn:hover {
-            background: #5a6268;
-            transform: translateY(-2px);
-        }
-        
-        .result {
-            text-align: center;
-            padding: 20px;
-            margin-top: 20px;
+        .section-result {
+            margin-top: 15px;
+            padding: 15px;
             border-radius: 10px;
-            font-size: 1.3em;
             font-weight: bold;
+            text-align: center;
             display: none;
         }
         
-        .result.show {
+        .section-result.show {
             display: block;
         }
         
-        .result.good {
+        .section-result.good {
             background: #d4edda;
             color: #155724;
             border: 2px solid #28a745;
         }
         
-        .result.medium {
+        .section-result.medium {
             background: #fff3cd;
             color: #856404;
             border: 2px solid #ffc107;
         }
         
-        .result.bad {
+        .section-result.bad {
             background: #f8d7da;
             color: #721c24;
             border: 2px solid #dc3545;
+        }
+        
+        .reset-section-btn {
+            background: #6c757d;
+            color: white;
+            padding: 12px 30px;
+            font-size: 1em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+        
+        .reset-section-btn:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
         }
         
         .instruction {
@@ -227,6 +232,27 @@
             color: #555;
         }
         
+        .text-block {
+            background: #fff9e6;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border-left: 4px solid #ffc107;
+            line-height: 1.8;
+            font-size: 1.05em;
+        }
+        
+        .text-block h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .text-block p {
+            text-indent: 20px;
+            margin-bottom: 10px;
+        }
+        
         @media (max-width: 600px) {
             .container {
                 padding: 20px;
@@ -234,14 +260,6 @@
             
             h1 {
                 font-size: 1.8em;
-            }
-            
-            .buttons {
-                flex-direction: column;
-            }
-            
-            button {
-                width: 100%;
             }
         }
     </style>
@@ -252,44 +270,49 @@
         <p class="subtitle">Упражнения по итальянскому языку</p>
         
         <!-- 1.4 -->
-        <div class="section">
+        <div class="section" data-section="1">
             <div class="section-title">1.4. Поставьте во множественное число (due)</div>
             <div class="instruction">Esempio: Io ho una penna. → Io ho due penne.</div>
             
             <div class="question" data-type="text">
                 <div class="question-text">1. Tu hai un libro interessante.</div>
-                <input type="text" class="text-input" data-answers='["tu hai due libri interessanti", "voi avete due libri interessanti"]' placeholder="Scrivi la risposta...">
+                <input type="text" class="text-input" data-answers='["tu hai due libri interessanti"]' placeholder="Scrivi la risposta...">
                 <div class="correct-answer"></div>
             </div>
 
             <div class="question" data-type="text">
                 <div class="question-text">2. Tu hai una penna verde.</div>
-                <input type="text" class="text-input" data-answers='["tu hai due penne verdi", "voi avete due penne verdi"]' placeholder="Scrivi la risposta...">
+                <input type="text" class="text-input" data-answers='["tu hai due penne verdi"]' placeholder="Scrivi la risposta...">
                 <div class="correct-answer"></div>
             </div>
 
             <div class="question" data-type="text">
                 <div class="question-text">3. Lei ha un bambino piccolo.</div>
-                <input type="text" class="text-input" data-answers='["lei ha due bambini piccoli", "loro hanno due bambini piccoli"]' placeholder="Scrivi la risposta...">
+                <input type="text" class="text-input" data-answers='["lei ha due bambini piccoli"]' placeholder="Scrivi la risposta...">
                 <div class="correct-answer"></div>
             </div>
 
             <div class="question" data-type="text">
                 <div class="question-text">4. Tu hai una macchina nuova.</div>
-                <input type="text" class="text-input" data-answers='["tu hai due macchine nuove", "voi avete due macchine nuove"]' placeholder="Scrivi la risposta...">
+                <input type="text" class="text-input" data-answers='["tu hai due macchine nuove"]' placeholder="Scrivi la risposta...">
                 <div class="correct-answer"></div>
             </div>
 
             <div class="question" data-type="text">
                 <div class="question-text">5. Lui ha un amico italiano.</div>
-                <input type="text" class="text-input" data-answers='["lui ha due amici italiani", "loro hanno due amici italiani"]' placeholder="Scrivi la risposta...">
+                <input type="text" class="text-input" data-answers='["lui ha due amici italiani"]' placeholder="Scrivi la risposta...">
                 <div class="correct-answer"></div>
             </div>
+            
+            <button class="check-section-btn" onclick="checkSection(1)">Проверить</button>
+            <button class="reset-section-btn" onclick="resetSection(1)">Сбросить</button>
+            <div class="section-result"></div>
         </div>
 
         <!-- 1.9 -->
-        <div class="section">
+        <div class="section" data-section="2">
             <div class="section-title">1.9. Замените женский род на мужской</div>
+            <div class="instruction">Напишите полное предложение, заменив существительные и прилагательные на мужской род.</div>
             
             <div class="question" data-type="text">
                 <div class="question-text">1. La mia amica è alta e bionda.</div>
@@ -326,11 +349,16 @@
                 <input type="text" class="text-input" data-answers='["il suo amico è inglese"]' placeholder="Scrivi la risposta...">
                 <div class="correct-answer"></div>
             </div>
+            
+            <button class="check-section-btn" onclick="checkSection(2)">Проверить</button>
+            <button class="reset-section-btn" onclick="resetSection(2)">Сбросить</button>
+            <div class="section-result"></div>
         </div>
 
         <!-- 1.15 -->
-        <div class="section">
+        <div class="section" data-section="3">
             <div class="section-title">1.15. Поставьте подлежащее во множественное число</div>
+            <div class="instruction">Напишите полное предложение во множественном числе.</div>
             
             <div class="question" data-type="text">
                 <div class="question-text">1. Quella studentessa è italiana?</div>
@@ -391,12 +419,16 @@
                 <input type="text" class="text-input" data-answers='["dove sono i bambini?", "dove sono i bambini"]' placeholder="Scrivi la risposta...">
                 <div class="correct-answer"></div>
             </div>
+            
+            <button class="check-section-btn" onclick="checkSection(3)">Проверить</button>
+            <button class="reset-section-btn" onclick="resetSection(3)">Сбросить</button>
+            <div class="section-result"></div>
         </div>
 
         <!-- 1.16 -->
-        <div class="section">
+        <div class="section" data-section="4">
             <div class="section-title">1.16. Задайте вопрос на "Lei" (вежливая форма)</div>
-            <div class="instruction">Замените "tu" на "Lei" (вежливую форму)</div>
+            <div class="instruction">Замените "tu" на "Lei" (вежливую форму). Напишите полное предложение.</div>
             
             <div class="question" data-type="text">
                 <div class="question-text">1. Quanti anni hai?</div>
@@ -457,51 +489,67 @@
                 <input type="text" class="text-input" data-answers='["ha fame?", "ha fame"]' placeholder="Scrivi la risposta...">
                 <div class="correct-answer"></div>
             </div>
+            
+            <button class="check-section-btn" onclick="checkSection(4)">Проверить</button>
+            <button class="reset-section-btn" onclick="resetSection(4)">Сбросить</button>
+            <div class="section-result"></div>
         </div>
 
-        <!-- TEXT 2 - Rispondere alle domande -->
-        <div class="section">
-            <div class="section-title">TEXT 2: Un bravo ragazzo - Rispondere alle domande</div>
+        <!-- TEXT 2 -->
+        <div class="section" data-section="5">
+            <div class="section-title">TEXT 2: Un bravo ragazzo</div>
+            
+            <div class="text-block">
+                <h3>Un bravo ragazzo</h3>
+                <p>È una bella giornata, è mezzogiorno. Due persone sono in casa: madre e figlio. Il figlio è in camera, è a letto; la madre è in cucina.</p>
+                <p>Il figlio chiama la madre e dice: "Mamma, ho sete". Allora la madre porta un bicchiere d'acqua.</p>
+                <p>Il figlio beve l'acqua, e non ha più sete. Ma subito dopo dice: "Mamma, ho fame". Allora la madre porta un piatto di pasta.</p>
+                <p>Il figlio mangia la pasta, e non ha più fame. Ma poi dice: "Mamma, ho freddo". Allora la madre porta una coperta.</p>
+                <p>Con la coperta, il figlio non ha più freddo. Ma poi dice: "Mamma, ho sonno". Allora la madre chiude la finestra, e lui dorme.</p>
+                <p>Il figlio dorme un po', e poi dice: "Mamma, ho paura". Allora la madre dice: "Perché hai paura? Non sei più un bambino. Hai già trentacinque anni".</p>
+            </div>
+            
+            <div class="instruction">Прочитайте текст и ответьте на вопросы полными предложениями.</div>
             
             <div class="question" data-type="text">
                 <div class="question-text">1. Chi è in casa?</div>
-                <input type="text" class="text-input" data-answers='["la madre e il figlio", "madre e il figlio", "madre e figlio", "il figlio e la madre", "due persone"]' placeholder="Scrivi la risposta...">
+                <input type="text" class="text-input" data-answers='["la madre e il figlio", "madre e il figlio", "madre e figlio", "il figlio e la madre", "due persone", "la madre e il figlio sono in casa", "madre e figlio sono in casa"]' placeholder="Scrivi la risposta...">
                 <div class="correct-answer"></div>
             </div>
 
             <div class="question" data-type="text">
                 <div class="question-text">2. Dov'è il figlio?</div>
-                <input type="text" class="text-input" data-answers='["è in camera", "in camera", "è a letto", "a letto", "in camera, a letto"]' placeholder="Scrivi la risposta...">
+                <input type="text" class="text-input" data-answers='["è in camera", "in camera", "è a letto", "a letto", "è in camera, a letto", "il figlio è in camera", "il figlio è a letto"]' placeholder="Scrivi la risposta...">
                 <div class="correct-answer"></div>
             </div>
 
             <div class="question" data-type="text">
                 <div class="question-text">3. Dov'è la madre?</div>
-                <input type="text" class="text-input" data-answers='["è in cucina", "in cucina"]' placeholder="Scrivi la risposta...">
+                <input type="text" class="text-input" data-answers='["è in cucina", "in cucina", "la madre è in cucina"]' placeholder="Scrivi la risposta...">
                 <div class="correct-answer"></div>
             </div>
 
             <div class="question" data-type="text">
                 <div class="question-text">4. Quanti anni ha il figlio?</div>
-                <input type="text" class="text-input" data-answers='["ha trentacinque anni", "trentacinque anni", "35 anni", "ha 35 anni"]' placeholder="Scrivi la risposta...">
+                <input type="text" class="text-input" data-answers='["ha trentacinque anni", "trentacinque anni", "35 anni", "ha 35 anni", "il figlio ha trentacinque anni", "il figlio ha 35 anni"]' placeholder="Scrivi la risposta...">
                 <div class="correct-answer"></div>
             </div>
 
             <div class="question" data-type="text">
                 <div class="question-text">5. Cosa fa la madre quando il figlio ha sete?</div>
-                <input type="text" class="text-input" data-answers='["porta un bicchiere d'\''acqua", "porta un bicchiere di acqua", "porta l'\''acqua", "porta acqua"]' placeholder="Scrivi la risposta...">
+                <input type="text" class="text-input" data-answers='["porta un bicchiere d'\''acqua", "porta un bicchiere di acqua", "porta l'\''acqua", "porta acqua", "la madre porta un bicchiere d'\''acqua"]' placeholder="Scrivi la risposta...">
                 <div class="correct-answer"></div>
             </div>
 
             <div class="question" data-type="text">
                 <div class="question-text">6. Cosa fa la madre quando il figlio ha fame?</div>
-                <input type="text" class="text-input" data-answers='["porta un piatto di pasta", "porta la pasta", "porta pasta"]' placeholder="Scrivi la risposta...">
+                <input type="text" class="text-input" data-answers='["porta un piatto di pasta", "porta la pasta", "porta pasta", "la madre porta un piatto di pasta"]' placeholder="Scrivi la risposta...">
                 <div class="correct-answer"></div>
             </div>
 
             <div class="question" data-type="text">
                 <div class="question-text">7. Cosa fa la madre quando il figlio ha freddo?</div>
-                <input type="text" class="text-input" data-answers='["porta una coperta", "porta la coperta"]' placeholder="Scrivi la risposta...">
+                <input type="text" class="text-input" data-answers='["porta una coperta", "porta la coperta", "la madre porta una coperta"]' placeholder="Scrivi la risposta...">
                 <div class="correct-answer"></div>
             </div>
 
@@ -513,85 +561,93 @@
 
             <div class="question" data-type="text">
                 <div class="question-text">9. Che cosa beve il figlio?</div>
-                <input type="text" class="text-input" data-answers='["beve l'\''acqua", "beve acqua", "acqua", "l'\''acqua", "un bicchiere d'\''acqua"]' placeholder="Scrivi la risposta...">
+                <input type="text" class="text-input" data-answers='["beve l'\''acqua", "beve acqua", "acqua", "l'\''acqua", "un bicchiere d'\''acqua", "il figlio beve l'\''acqua", "il figlio beve acqua"]' placeholder="Scrivi la risposta...">
                 <div class="correct-answer"></div>
             </div>
 
             <div class="question" data-type="text">
                 <div class="question-text">10. Che cosa mangia il figlio?</div>
-                <input type="text" class="text-input" data-answers='["mangia la pasta", "mangia pasta", "pasta", "la pasta", "un piatto di pasta"]' placeholder="Scrivi la risposta...">
+                <input type="text" class="text-input" data-answers='["mangia la pasta", "mangia pasta", "pasta", "la pasta", "un piatto di pasta", "il figlio mangia la pasta", "il figlio mangia pasta"]' placeholder="Scrivi la risposta...">
                 <div class="correct-answer"></div>
             </div>
+            
+            <button class="check-section-btn" onclick="checkSection(5)">Проверить</button>
+            <button class="reset-section-btn" onclick="resetSection(5)">Сбросить</button>
+            <div class="section-result"></div>
         </div>
 
         <!-- 3. Cambiare le frasi -->
-        <div class="section">
+        <div class="section" data-section="6">
             <div class="section-title">3. Cambiare le frasi</div>
-            <div class="instruction">Esempio: Io ho fame; anche Marco ha fame. → Io e Marco abbiamo fame.</div>
+            <div class="instruction"><strong>Напишите ПОЛНОЕ предложение!</strong><br>Esempio: Io ho fame; anche Marco ha fame. → <strong>Io e Marco abbiamo fame.</strong></div>
             
             <div class="question" data-type="text">
                 <div class="question-text">1. Io ho sete; anche tu hai sete.</div>
-                <input type="text" class="text-input" data-answers='["io e tu abbiamo sete", "noi abbiamo sete"]' placeholder="Scrivi la risposta...">
+                <input type="text" class="text-input" data-answers='["io e tu abbiamo sete", "noi abbiamo sete"]' placeholder="Scrivi la risposta completa...">
                 <div class="correct-answer"></div>
             </div>
 
             <div class="question" data-type="text">
                 <div class="question-text">2. Tu hai sonno; anche Dino ha sonno.</div>
-                <input type="text" class="text-input" data-answers='["tu e dino avete sonno", "voi avete sonno"]' placeholder="Scrivi la risposta...">
+                <input type="text" class="text-input" data-answers='["tu e dino avete sonno", "voi avete sonno"]' placeholder="Scrivi la risposta completa...">
                 <div class="correct-answer"></div>
             </div>
 
             <div class="question" data-type="text">
                 <div class="question-text">3. Paolo ha freddo; anche Marco ha freddo.</div>
-                <input type="text" class="text-input" data-answers='["paolo e marco hanno freddo"]' placeholder="Scrivi la risposta...">
+                <input type="text" class="text-input" data-answers='["paolo e marco hanno freddo"]' placeholder="Scrivi la risposta completa...">
                 <div class="correct-answer"></div>
             </div>
 
             <div class="question" data-type="text">
                 <div class="question-text">4. Io ho molto lavoro; anche Paolo ha molto lavoro.</div>
-                <input type="text" class="text-input" data-answers='["io e paolo abbiamo molto lavoro"]' placeholder="Scrivi la risposta...">
+                <input type="text" class="text-input" data-answers='["io e paolo abbiamo molto lavoro"]' placeholder="Scrivi la risposta completa...">
                 <div class="correct-answer"></div>
             </div>
 
             <div class="question" data-type="text">
                 <div class="question-text">5. Il dottor Garbati ha paura del buio; anche il dottor Melani ha paura del buio.</div>
-                <input type="text" class="text-input" data-answers='["il dottor garbati e il dottor melani hanno paura del buio", "il dott. garbati e il dott. melani hanno paura del buio"]' placeholder="Scrivi la risposta...">
+                <input type="text" class="text-input" data-answers='["il dottor garbati e il dottor melani hanno paura del buio", "il dott. garbati e il dott. melani hanno paura del buio", "i dottori garbati e melani hanno paura del buio"]' placeholder="Scrivi la risposta completa...">
                 <div class="correct-answer"></div>
             </div>
 
             <div class="question" data-type="text">
                 <div class="question-text">6. Io ho caldo; anche Dino ha caldo.</div>
-                <input type="text" class="text-input" data-answers='["io e dino abbiamo caldo"]' placeholder="Scrivi la risposta...">
+                <input type="text" class="text-input" data-answers='["io e dino abbiamo caldo"]' placeholder="Scrivi la risposta completa...">
                 <div class="correct-answer"></div>
             </div>
 
             <div class="question" data-type="text">
                 <div class="question-text">7. Io non ho tempo; anche tu non hai tempo.</div>
-                <input type="text" class="text-input" data-answers='["io e tu non abbiamo tempo", "noi non abbiamo tempo"]' placeholder="Scrivi la risposta...">
+                <input type="text" class="text-input" data-answers='["io e tu non abbiamo tempo", "noi non abbiamo tempo"]' placeholder="Scrivi la risposta completa...">
                 <div class="correct-answer"></div>
             </div>
 
             <div class="question" data-type="text">
                 <div class="question-text">8. Tu hai una famiglia grande; anche Pietro ha una famiglia grande.</div>
-                <input type="text" class="text-input" data-answers='["tu e pietro avete una famiglia grande", "voi avete una famiglia grande"]' placeholder="Scrivi la risposta...">
+                <input type="text" class="text-input" data-answers='["tu e pietro avete una famiglia grande", "voi avete una famiglia grande"]' placeholder="Scrivi la risposta completa...">
                 <div class="correct-answer"></div>
             </div>
 
             <div class="question" data-type="text">
                 <div class="question-text">9. Carlo ha la macchina; anche Giorgio ha la macchina.</div>
-                <input type="text" class="text-input" data-answers='["carlo e giorgio hanno la macchina"]' placeholder="Scrivi la risposta...">
+                <input type="text" class="text-input" data-answers='["carlo e giorgio hanno la macchina"]' placeholder="Scrivi la risposta completa...">
                 <div class="correct-answer"></div>
             </div>
 
             <div class="question" data-type="text">
                 <div class="question-text">10. Io ho un cactus verde; anche tu hai un cactus verde.</div>
-                <input type="text" class="text-input" data-answers='["io e tu abbiamo un cactus verde", "noi abbiamo un cactus verde"]' placeholder="Scrivi la risposta...">
+                <input type="text" class="text-input" data-answers='["io e tu abbiamo un cactus verde", "noi abbiamo un cactus verde"]' placeholder="Scrivi la risposta completa...">
                 <div class="correct-answer"></div>
             </div>
+            
+            <button class="check-section-btn" onclick="checkSection(6)">Проверить</button>
+            <button class="reset-section-btn" onclick="resetSection(6)">Сбросить</button>
+            <div class="section-result"></div>
         </div>
 
-        <!-- Sezione 1: Essere e Avere -->
-        <div class="section">
+        <!-- Sezione Test: Essere e Avere -->
+        <div class="section" data-section="7">
             <div class="section-title">Test: Essere e Avere (множественный выбор)</div>
             
             <div class="question" data-answer="c">
@@ -823,14 +879,11 @@
                     <label class="option"><input type="radio" name="q23" value="d"> d) È</label>
                 </div>
             </div>
+            
+            <button class="check-section-btn" onclick="checkSection(7)">Проверить</button>
+            <button class="reset-section-btn" onclick="resetSection(7)">Сбросить</button>
+            <div class="section-result"></div>
         </div>
-
-        <div class="buttons">
-            <button class="check-btn" onclick="checkAnswers()">Проверить все ответы</button>
-            <button class="reset-btn" onclick="resetQuiz()">Начать заново</button>
-        </div>
-
-        <div id="result" class="result"></div>
     </div>
 
     <script>
@@ -839,7 +892,8 @@
                 .trim()
                 .replace(/\s+/g, ' ')
                 .replace(/[\.!,;:\?]/g, '')
-                .replace(/'/g, "'");
+                .replace(/'/g, "'")
+                .replace(/è/g, 'e');
         }
 
         function checkTextInput(input) {
@@ -866,9 +920,10 @@
             return null;
         }
 
-        function checkAnswers() {
-            const multipleChoiceQuestions = document.querySelectorAll('.question[data-answer]');
-            const textQuestions = document.querySelectorAll('.question[data-type="text"]');
+        function checkSection(sectionNumber) {
+            const section = document.querySelector(`.section[data-section="${sectionNumber}"]`);
+            const multipleChoiceQuestions = section.querySelectorAll('.question[data-answer]');
+            const textQuestions = section.querySelectorAll('.question[data-type="text"]');
             
             let correct = 0;
             let total = 0;
@@ -917,7 +972,7 @@
             }
             
             const percentage = Math.round((correct / total) * 100);
-            const resultDiv = document.getElementById('result');
+            const resultDiv = section.querySelector('.section-result');
             
             let resultClass = 'bad';
             let message = '';
@@ -933,41 +988,41 @@
                 message = '💪 Continua a studiare! ';
             }
             
-            resultDiv.className = `result show ${resultClass}`;
+            resultDiv.className = `section-result show ${resultClass}`;
             resultDiv.innerHTML = `${message}Risultato: ${correct} / ${total} (${percentage}%)`;
             
-            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
         
-        function resetQuiz() {
+        function resetSection(sectionNumber) {
+            const section = document.querySelector(`.section[data-section="${sectionNumber}"]`);
+            
             // Reset multiple choice
-            const options = document.querySelectorAll('.option');
+            const options = section.querySelectorAll('.option');
             options.forEach(option => {
                 option.classList.remove('correct', 'incorrect');
             });
             
-            const radioButtons = document.querySelectorAll('input[type="radio"]');
+            const radioButtons = section.querySelectorAll('input[type="radio"]');
             radioButtons.forEach(radio => {
                 radio.checked = false;
             });
             
             // Reset text inputs
-            const textInputs = document.querySelectorAll('.text-input');
+            const textInputs = section.querySelectorAll('.text-input');
             textInputs.forEach(input => {
                 input.value = '';
                 input.classList.remove('correct-input', 'incorrect-input');
             });
             
             // Hide correct answers
-            const correctAnswers = document.querySelectorAll('.correct-answer');
+            const correctAnswers = section.querySelectorAll('.correct-answer');
             correctAnswers.forEach(answer => {
                 answer.classList.remove('show');
             });
             
-            const resultDiv = document.getElementById('result');
+            const resultDiv = section.querySelector('.section-result');
             resultDiv.classList.remove('show');
-            
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
 </body>
